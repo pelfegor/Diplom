@@ -39,4 +39,11 @@ public class PayNumberOfMonthFieldTest extends TestBaseUI {
         paymentPage.fillCardData(cardData);
         paymentPage.shouldInvalidExpiredDateNotification();
     }
+    
+    @Test
+    public void shouldFailurePaymentIfLessThenThisMonthInCurrentYear() {
+        val cardData = getInvalidNumberOfMonthIfLessThenThisMonthInCurrentYear();
+        paymentPage.fillCardData(cardData);
+        paymentPage.shouldInvalidExpiredDateNotification();
+    }
 }
