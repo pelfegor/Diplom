@@ -4,6 +4,9 @@ import lombok.NoArgsConstructor;
 import lombok.Value;
 import ru.netology.Generator;
 
+import static ru.netology.Generator.getMonth;
+import static ru.netology.Generator.getYear;
+
 @NoArgsConstructor
 public class Data {
 
