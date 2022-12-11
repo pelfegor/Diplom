@@ -13,28 +13,28 @@ public class APITest {
     @Test
     void shouldGetStatusValidApprovedCardPayment() {
         val validApprovedCard = getApprovedCard();
-        val status = PaymentPageForm(validApprovedCard);
+        val status = paymentPageForm(validApprovedCard);
         assertTrue(status.contains("APPROVED"));
     }
 
     @Test
     void shouldGetStatusValidDeclinedCardPayment() {
         val validDeclinedCard = getDeclinedCard();
-        val status = PaymentPageForm(validDeclinedCard);
+        val status = paymentPageForm(validDeclinedCard);
         assertTrue(status.contains("DECLINED"));
     }
 
     @Test
     void shouldGetStatusValidApprovedCardCreditRequest() {
         val validApprovedCard = getApprovedCard();
-        val status = CreditRequestPageForm(validApprovedCard);
+        val status = creditRequestPageForm(validApprovedCard);
         assertTrue(status.contains("APPROVED"));
     }
 
     @Test
     void shouldGetStatusValidDeclinedCardCreditRequest() {
         val validDeclinedCard = getDeclinedCard();
-        val status = CreditRequestPageForm(validDeclinedCard);
+        val status = creditRequestPageForm(validDeclinedCard);
         assertTrue(status.contains("DECLINED"));
     }
 }

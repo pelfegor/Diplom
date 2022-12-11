@@ -3,9 +3,15 @@ package ru.netology.tests.creditrequest;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.netology.data.SQL;
+import ru.netology.databaseentities.CreditRequestEntity;
+import ru.netology.databaseentities.OrderEntity;
+import ru.netology.databaseentities.PaymentEntity;
 import ru.netology.pages.MainPage;
 import ru.netology.pages.PaymentPage;
 import ru.netology.tests.TestBaseUI;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,6 +28,9 @@ public class CreditPayHappyPathTest extends TestBaseUI {
         mainPage.payWithCredit();
     }
 
+    List<CreditRequestEntity> credits = SQL.getCreditsRequest();
+    List<OrderEntity> orders = SQL.getOrders();
+
     @Test
     public void shouldSuccessPayIfValidApprovedCards() {
         val cardData = getApprovedCard();
@@ -29,17 +38,15 @@ public class CreditPayHappyPathTest extends TestBaseUI {
         paymentPage.shouldSuccessNotification();
 
         val expectedStatus = "APPROVED";
-        val actualStatus = getCardStatusForPayment();
+        val actualStatus = credits.get(0).getStatus();
         assertEquals(expectedStatus, actualStatus);
 
-        val expectedAmount = "4500000";
-        val actualAmount = getAmountPayment();
-        assertEquals(expectedAmount, actualAmount);
+        val expectedPaymentId = orders.get(0).getPayment_id();
+        val actualBankId = credits.get(0).getBank_id();
+        assertEquals(expectedPaymentId, actualBankId);
 
-        val transactionIdExpected = getTransactionId();
-        val paymentIdActual = getPaymentIdForCardPay();
-        assertNotNull(transactionIdExpected);
-        assertNotNull(paymentIdActual);
-        assertEquals(transactionIdExpected, paymentIdActual);
+        val expectedCreditId = orders.get(0).getCredit_id();
+        val actualId = credits.get(0).getId();
+        assertEquals(expectedCreditId, actualId);
     }
 }

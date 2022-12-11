@@ -1,15 +1,23 @@
 package ru.netology.data;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import ru.netology.databaseentities.CreditRequestEntity;
 import ru.netology.databaseentities.OrderEntity;
 import ru.netology.databaseentities.PaymentEntity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class SQL {
     private static final String url = System.getProperty("db.url");
@@ -31,7 +39,34 @@ public class SQL {
         runner.execute(connection, "DELETE FROM payment_entity");
     }
 
-    public static String getCardStatusForPayment() {
+    @SneakyThrows
+    public static List<PaymentEntity> getPayments() {
+        val connection = getConnection();
+        val runner = new QueryRunner();
+        var sqlQuery = "SELECT * FROM payment_entity ORDER BY created DESC;";
+        ResultSetHandler<List<PaymentEntity>> resultHandler = new BeanListHandler<>(PaymentEntity.class);
+        return runner.query(connection, sqlQuery, resultHandler);
+    }
+
+    @SneakyThrows
+    public static List<CreditRequestEntity> getCreditsRequest() {
+        val connection = getConnection();
+        val runner = new QueryRunner();
+        var sqlQuery = "SELECT * FROM credit_request_entity ORDER BY created DESC;";
+        ResultSetHandler<List<CreditRequestEntity>> resultHandler = new BeanListHandler<>(CreditRequestEntity.class);
+        return runner.query(connection, sqlQuery, resultHandler);
+    }
+
+    @SneakyThrows
+    public static List<OrderEntity> getOrders() {
+        val connection = getConnection();
+        val runner = new QueryRunner();
+        var sqlQuery = "SELECT * FROM order_entity ORDER BY created DESC;";
+        ResultSetHandler<List<OrderEntity>> resultHandler = new BeanListHandler<>(OrderEntity.class);
+        return runner.query(connection, sqlQuery, resultHandler);
+    }
+
+    /*public static String getCardStatusForPayment() {
         String statusQuery = "SELECT * FROM payment_entity";
         val runner = new QueryRunner();
         try (Connection connection = getConnection()) {
@@ -77,5 +112,5 @@ public class SQL {
             sqlException.printStackTrace();
         }
         return null;
-    }
+    }*/
 }
