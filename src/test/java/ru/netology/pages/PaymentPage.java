@@ -4,8 +4,10 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.Data;
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -24,6 +26,7 @@ public class PaymentPage {
     private final SelenideElement invalidExpiredDate =  $(byText("Неверно указан срок действия карты"));
     private final SelenideElement expiredDatePass =  $(byText("Истёк срок действия карты"));
     private final SelenideElement successNote =  $(byText("Операция одобрена Банком."));
+    private final SelenideElement success = $(".notification_status_ok");
     private final SelenideElement failureNote =  $(byText("Ошибка! Банк отказал в проведении операции."));
 
     private final SelenideElement continueButton =  $$("button").find(exactText("Продолжить"));
@@ -54,6 +57,7 @@ public class PaymentPage {
     }
 
     public void shouldSuccessNotification() {
+        //success.shouldBe(visible, Duration.ofSeconds(15));
         successNote.waitUntil(Condition.visible, 15000);
     }
 

@@ -35,8 +35,8 @@ public class PayHappyPathTest extends TestBaseUI {
 
         val expectedStatus = "APPROVED";
         val actualStatus = payments.get(0).getStatus();
-        //assertTrue(actualStatus.equalsIgnoreCase(expectedStatus));
-        assertEquals(expectedStatus, actualStatus);
+        assertTrue(actualStatus.equalsIgnoreCase(expectedStatus));
+        //assertEquals(expectedStatus, actualStatus);
 
         val expectedAmount = "4500000";
         val actualAmount = payments.get(0).getAmount();

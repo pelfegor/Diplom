@@ -13,8 +13,7 @@ import ru.netology.tests.TestBaseUI;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.netology.data.Data.getApprovedCard;
 import static ru.netology.data.Data.getDeclinedCard;
 import static ru.netology.data.SQL.*;
@@ -39,7 +38,8 @@ public class CreditPayHappyPathTest extends TestBaseUI {
 
         val expectedStatus = "APPROVED";
         val actualStatus = credits.get(0).getStatus();
-        assertEquals(expectedStatus, actualStatus);
+        assertTrue(expectedStatus.equalsIgnoreCase(actualStatus));
+        //assertEquals(expectedStatus, actualStatus);
 
         val expectedPaymentId = orders.get(0).getPayment_id();
         val actualBankId = credits.get(0).getBank_id();
