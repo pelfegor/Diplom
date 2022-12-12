@@ -9,6 +9,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import ru.netology.databaseentities.CreditRequestEntity;
 import ru.netology.databaseentities.OrderEntity;
 import ru.netology.databaseentities.PaymentEntity;
@@ -46,6 +47,7 @@ public class SQL {
         var sqlQuery = "SELECT * FROM payment_entity ORDER BY created DESC;";
         ResultSetHandler<List<PaymentEntity>> resultHandler = new BeanListHandler<>(PaymentEntity.class);
         return runner.query(connection, sqlQuery, resultHandler);
+        //return runner.query(connection, sqlQuery, new ScalarHandler<>());
     }
 
     @SneakyThrows

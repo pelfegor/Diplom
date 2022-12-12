@@ -26,7 +26,6 @@ public class PaymentPage {
     private final SelenideElement invalidExpiredDate =  $(byText("Неверно указан срок действия карты"));
     private final SelenideElement expiredDatePass =  $(byText("Истёк срок действия карты"));
     private final SelenideElement successNote =  $(byText("Операция одобрена Банком."));
-    private final SelenideElement success = $(".notification_status_ok");
     private final SelenideElement failureNote =  $(byText("Ошибка! Банк отказал в проведении операции."));
 
     private final SelenideElement continueButton =  $$("button").find(exactText("Продолжить"));
@@ -57,12 +56,11 @@ public class PaymentPage {
     }
 
     public void shouldSuccessNotification() {
-        //success.shouldBe(visible, Duration.ofSeconds(15));
-        successNote.waitUntil(Condition.visible, 15000);
+        successNote.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void shouldFailureNotification() {
-        failureNote.waitUntil(Condition.visible, 15000);
+        failureNote.shouldBe(visible, Duration.ofSeconds(15));
     }
 
 }
