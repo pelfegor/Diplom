@@ -24,8 +24,8 @@ public class PayHappyPathTest extends TestBaseUI {
     void setUpForPayWithCard() {
         mainPage.payWithCard();
     }
-    List<PaymentEntity> payments = SQL.getPayments();
-    List<OrderEntity> orders = SQL.getOrders();
+    static List<PaymentEntity> payments = SQL.getPayments();
+    static List<OrderEntity> orders = SQL.getOrders();
 
     @Test
     public void shouldSuccessPayIfValidApprovedCards() {
@@ -33,10 +33,12 @@ public class PayHappyPathTest extends TestBaseUI {
         paymentPage.fillCardData(cardData);
         paymentPage.shouldSuccessNotification();
 
+        payments = SQL.getPayments();
+        orders = SQL.getOrders();
+
         val expectedStatus = "APPROVED";
         val actualStatus = payments.get(0).getStatus();
         assertTrue(actualStatus.equalsIgnoreCase(expectedStatus));
-        //assertEquals(expectedStatus, actualStatus);
 
         val expectedAmount = "4500000";
         val actualAmount = payments.get(0).getAmount();

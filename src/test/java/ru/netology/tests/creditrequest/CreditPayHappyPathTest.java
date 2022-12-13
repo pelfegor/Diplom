@@ -27,8 +27,8 @@ public class CreditPayHappyPathTest extends TestBaseUI {
         mainPage.payWithCredit();
     }
 
-    List<CreditRequestEntity> credits = SQL.getCreditsRequest();
-    List<OrderEntity> orders = SQL.getOrders();
+    static List<CreditRequestEntity> credits = SQL.getCreditsRequest();
+    static List<OrderEntity> orders = SQL.getOrders();
 
     @Test
     public void shouldSuccessPayIfValidApprovedCards() {
@@ -36,17 +36,15 @@ public class CreditPayHappyPathTest extends TestBaseUI {
         paymentPage.fillCardData(cardData);
         paymentPage.shouldSuccessNotification();
 
+        credits = SQL.getCreditsRequest();
+        orders = SQL.getOrders();
+
         val expectedStatus = "APPROVED";
         val actualStatus = credits.get(0).getStatus();
         assertTrue(expectedStatus.equalsIgnoreCase(actualStatus));
-        //assertEquals(expectedStatus, actualStatus);
 
         val expectedPaymentId = orders.get(0).getPayment_id();
         val actualBankId = credits.get(0).getBank_id();
         assertEquals(expectedPaymentId, actualBankId);
-
-        val expectedCreditId = orders.get(0).getCredit_id();
-        val actualId = credits.get(0).getId();
-        assertEquals(expectedCreditId, actualId);
     }
 }
