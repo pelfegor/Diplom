@@ -3,7 +3,8 @@
 ## Документация 
 
 [План автоматизации ](https://github.com/pelfegor/Diplom/blob/master/documents/Plan.md)
-
+[Отчёт по итогам тестирования](https://github.com/pelfegor/Diplom1/blob/master/documents/Report.md)
+[Отчёт по итогам автоматизации](https://github.com/pelfegor/Diplom1/blob/master/documents/Summary.md)
 
 ## Запуск приложений
 
